@@ -904,6 +904,102 @@
     .hero__tag { right: 4px; }
     .header-side--left { display: none; }
   }
+
+  /* ---------- celular: layout próprio dentro do index ---------- */
+  @media (max-width: 700px) {
+    .topbar__inner { padding: 9px 18px; gap: 6px; font-size: 8px; letter-spacing: .14em; }
+    .topbar__right { gap: 10px; }
+    .topbar__right > span { display: none; }
+
+    .header-main { padding: 12px 18px; gap: 12px; }
+    .brand { gap: 10px; }
+    .seal { width: 44px; height: 44px; }
+    .seal__mono { font-size: 16px; }
+    .wordmark__name { font-size: 16px; letter-spacing: .14em; }
+    .wordmark__sub { font-size: 6px; letter-spacing: .22em; }
+    .header-side--right { gap: 0; }
+    .header-side--right .btn { display: none; }
+    .cart { white-space: nowrap; font-size: 9px; }
+    .header-nav__inner {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      gap: 18px;
+      padding: 10px 18px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .header-nav__inner::-webkit-scrollbar { display: none; }
+    .header-nav a { flex: none; font-size: 9px; letter-spacing: .18em; }
+
+    .hero__grid { padding: 32px 18px 44px; gap: 34px; }
+    .hero__script { font-size: 22px; margin-top: 16px; }
+    .hero__title { font-size: 38px; margin: 12px 0 16px; }
+    .hero__lede { font-size: 13.5px; }
+    .hero__actions { flex-direction: column; gap: 10px; margin: 24px 0 28px; }
+    .hero__actions .btn { width: 100%; }
+    .hero__meta { gap: 8px 16px; font-size: 8px; padding-top: 16px; }
+    .hero__art { margin-top: 8px; }
+    .arch { width: min(100%, 300px); }
+    .hero__badge { width: 92px; height: 92px; left: 0; bottom: 0; }
+    .hero__tag { top: 14px; right: 0; font-size: 7px; padding: 6px 10px; }
+    .hero__spark--a { left: 2%; }
+
+    .ribbon { padding: 12px 0; }
+    .ribbon__group { gap: 18px; padding-right: 18px; }
+    .ribbon__group span { font-size: 8px; letter-spacing: .22em; }
+
+    .section { padding: 42px 18px 48px; }
+    .section-head { margin-bottom: 24px; }
+    .section-head__link { font-size: 9px; }
+    .h2 { font-size: 29px; }
+
+    .pieces { gap: 14px; }
+    .pcard { border-radius: 12px; }
+    .pcard__tag { top: 8px; left: 8px; font-size: 6px; letter-spacing: .12em; padding: 4px 7px; }
+    .pcard__body { padding: 12px 12px 14px; gap: 0; }
+    .pcard__top { flex-direction: column; align-items: flex-start; gap: 2px; }
+    .pcard__name { font-size: 15px; line-height: 1.25; }
+    .pcard__price { font-size: 9px; white-space: normal; }
+    .pcard__desc { margin-top: 5px; font-size: 9.5px; line-height: 1.5; }
+    .pcard__link { margin-top: 8px; font-size: 8px; letter-spacing: .14em; }
+
+    .custom__grid { padding: 44px 18px; gap: 34px; }
+    .custom__lede { font-size: 13px; }
+    .brief { padding: 22px 18px 20px; border-radius: 14px; }
+    .brief__head { flex-wrap: wrap; row-gap: 2px; }
+    .brief__title { font-size: 21px; }
+    .brief__note { font-size: 10.5px; }
+    .chip { padding: 8px 12px 7px; font-size: 10.5px; }
+
+    .process__grid { gap: 20px 16px; }
+    .diary__grid { padding: 44px 18px; }
+    .diary__quote { font-size: 26px; }
+    .diary__body { padding-left: 0; padding-top: 22px; border-left: 0; border-top: 1px solid var(--line); }
+
+    .footer { padding: 44px 18px 22px; }
+    .footer__grid { grid-template-columns: 1fr; gap: 26px; padding-bottom: 30px; }
+    .footer .seal { width: 44px; height: 44px; }
+    .footer .seal__mono { font-size: 16px; }
+    .footer .wordmark__name { font-size: 16px; }
+    .footer .wordmark__sub { font-size: 6px; }
+    .footer__bottom { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .newsletter { max-width: none; }
+  }
+
+  @media (max-width: 380px) {
+    .header-nav__inner {
+      flex-wrap: wrap;
+      justify-content: center;
+      overflow: visible;
+      row-gap: 8px;
+      padding: 10px 14px;
+    }
+    .topbar__inner { font-size: 7.5px; padding-left: 14px; padding-right: 14px; }
+    .hero__grid { padding-left: 14px; padding-right: 14px; }
+    .section, .custom__grid, .diary__grid { padding-left: 14px; padding-right: 14px; }
+    .footer { padding-left: 14px; padding-right: 14px; }
+    .pieces { gap: 10px; }
+  }
 </style>
 </head>
 <body>
