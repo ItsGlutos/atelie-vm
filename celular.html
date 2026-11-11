@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ateliê VM — Artesanato em resina | celular</title>
+<meta name="description" content="Peças únicas em resina com flores prensadas, feitas à mão no Ateliê VM. Encomendas sob medida.">
+<meta name="theme-color" content="#FBF6F1">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%23FBF6F1'/%3E%3Ccircle cx='32' cy='32' r='27' fill='none' stroke='%23C89A91'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='24' text-anchor='middle' fill='%233A3431'%3EVM%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Parisienne&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FBF6F1;
+    --cream-2: #F7ECE5;
+    --white: #FFFDFB;
+    --rose: #C89A91;
+    --rose-deep: #A9746C;
+    --rose-soft: #EFD9D3;
+    --sage: #9DAA92;
+    --ink: #3A3431;
+    --muted: #6B625C;
+    --line: #E6D5CC;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Jost', system-ui, -apple-system, sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button, input, textarea { font: inherit; color: inherit; }
+  ::selection { background: var(--rose-soft); color: var(--ink); }
+  :focus-visible { outline: 2px solid var(--rose-deep); outline-offset: 3px; }
+
+  .skip-link {
+    position: absolute; left: 12px; top: -60px; z-index: 200;
+    padding: 10px 16px; background: var(--ink); color: var(--cream);
+    font-size: 9px; letter-spacing: .16em; text-transform: uppercase;
+  }
+  .skip-link:focus { top: 10px; }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 10px; margin: 0;
+    font-size: 8px; letter-spacing: .24em; text-transform: uppercase; color: var(--rose-deep);
+  }
+  .eyebrow::before { content: ""; width: 22px; height: 1px; background: currentColor; opacity: .65; }
+  .script { font-family: 'Parisienne', cursive; color: var(--rose-deep); }
+
+  .h2 {
+    margin: 10px 0 0;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 400; font-size: 29px; line-height: 1.15; letter-spacing: -.015em;
+  }
+  .h2 em { font-style: italic; color: var(--rose-deep); }
+
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    padding: 15px 20px 14px; border: 1px solid var(--ink); border-radius: 999px;
+    font-size: 9px; letter-spacing: .2em; text-transform: uppercase;
+    transition: background .3s ease, color .3s ease, border-color .3s ease;
+  }
+  .btn--solid { background: var(--ink); color: var(--cream); }
+  .btn--ghost { border-color: var(--rose); }
+
+  .draw-link { position: relative; }
+  .draw-link::after {
+    content: ""; position: absolute; left: 0; bottom: -3px; width: 100%; height: 1px;
+    background: currentColor; transform: scaleX(0); transform-origin: right;
+    transition: transform .4s cubic-bezier(.19, 1, .22, 1);
+  }
+  .draw-link:hover::after, .draw-link:focus-visible::after { transform: scaleX(1); transform-origin: left; }
+
+  /* faixa superior */
+  .topbar { background: var(--cream-2); border-bottom: 1px solid var(--line); padding: 10px 20px; }
+  .topbar div {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 8px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+  }
+  .topbar div + div { margin-top: 4px; }
+  .topbar svg { color: var(--rose); flex: none; }
+
+  /* cabeçalho */
+  .site-header {
+    position: sticky; top: 0; z-index: 60;
+    background: rgba(251, 246, 241, .95);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  .header-main {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding: 12px 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; }
+  .seal {
+    position: relative; flex: none; width: 44px; height: 44px; border-radius: 50%;
+    background: var(--white); border: 1px solid var(--rose);
+    display: grid; place-items: center;
+  }
+  .seal::before { content: ""; position: absolute; inset: 3px; border: 1px solid var(--rose); border-radius: 50%; opacity: .5; }
+  .seal__mono { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; letter-spacing: -.05em; color: var(--ink); line-height: 1; }
+  .seal__mono em { font-style: normal; color: var(--rose-deep); }
+  .wordmark { display: flex; flex-direction: column; gap: 3px; }
+  .wordmark__name { font-family: 'Playfair Display', Georgia, serif; font-size: 16px; letter-spacing: .16em; line-height: 1; }
+  .wordmark__sub { font-size: 6px; letter-spacing: .28em; text-transform: uppercase; color: var(--muted); }
+
+  .cart { display: inline-flex; align-items: center; gap: 6px; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; }
+  .cart svg { color: var(--rose-deep); }
+
+  .header-nav { border-top: 1px solid var(--line); }
+  .header-nav__inner {
+    display: flex; gap: 18px; padding: 10px 20px;
+    overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .header-nav__inner::-webkit-scrollbar { display: none; }
+  .header-nav a { flex: none; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #514843; }
+
+  /* hero */
+  .hero {
+    position: relative; overflow: hidden; padding: 34px 20px 44px;
+    background:
+      radial-gradient(420px 300px at 80% 6%, #FBEFE8 0%, rgba(251, 239, 232, 0) 72%),
+      var(--cream);
+  }
+  .hero__script { margin: 16px 0 0; font-size: 22px; line-height: 1; }
+  .hero__title {
+    margin: 12px 0 16px; font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 400; font-size: 38px; line-height: 1.05; letter-spacing: -.025em;
+  }
+  .hero__title em { font-style: italic; color: var(--rose-deep); }
+  .hero__lede { margin: 0; font-size: 13.5px; line-height: 1.8; color: #5C534D; }
+  .hero__actions { display: flex; flex-direction: column; gap: 10px; margin: 24px 0 28px; }
+
+  .hero__art { position: relative; display: flex; justify-content: center; margin-top: 6px; }
+  .arch {
+    position: relative; width: 282px; aspect-ratio: 418 / 512;
+    border-radius: 160px 160px 12px 12px; overflow: hidden;
+    background: var(--white); border: 1px solid var(--rose);
+    box-shadow: 0 34px 60px -46px rgba(140, 92, 84, .6);
+  }
+  .arch svg { width: 100%; height: 100%; }
+  .hero__badge {
+    position: absolute; left: 0; bottom: 2px; width: 88px; height: 88px; border-radius: 50%;
+    background: var(--white); border: 1px solid var(--rose);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1px; text-align: center;
+    box-shadow: 0 16px 28px -20px rgba(140, 92, 84, .7);
+  }
+  .hero__badge::before { content: ""; position: absolute; inset: 4px; border: 1px solid var(--rose); border-radius: 50%; opacity: .45; }
+  .hero__badge small { font-size: 6px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .hero__badge .script { font-size: 16px; line-height: 1.1; }
+  .hero__tag {
+    position: absolute; top: 14px; right: 0;
+    padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px;
+    background: rgba(255, 253, 251, .92);
+    font-size: 7px; letter-spacing: .16em; text-transform: uppercase; color: var(--rose-deep);
+  }
+  .hero__spark { position: absolute; color: var(--rose); }
+  .hero__spark--a { top: 4%; left: 4%; }
+  .hero__spark--b { bottom: 12%; right: 2%; }
+
+  .hero__meta {
+    display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 26px; padding-top: 16px;
+    border-top: 1px solid var(--line);
+    font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+  }
+  .hero__meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .hero__meta span + span::before { content: "✦"; color: var(--rose); font-size: 7px; }
+
+  /* fita */
+  .ribbon { overflow: hidden; background: var(--cream-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 12px 0; }
+  .ribbon__track { display: flex; width: max-content; animation: marquee var(--marquee-speed, 28s) linear infinite; }
+  .ribbon__group { display: flex; align-items: center; gap: 18px; padding-right: 18px; white-space: nowrap; }
+  .ribbon__group span { font-size: 8px; letter-spacing: .24em; text-transform: uppercase; color: #574E49; }
+  .ribbon__group .spark { color: var(--rose); letter-spacing: 0; }
+  @keyframes marquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+
+  /* seções */
+  .section { padding: 44px 20px 50px; }
+  .section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; margin-bottom: 26px; }
+  .section-head__link { font-size: 8px; letter-spacing: .16em; text-transform: uppercase; color: var(--rose-deep); white-space: nowrap; }
+
+  .pieces { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .pcard { display: flex; flex-direction: column; background: var(--white); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .pcard__art {
+    position: relative; aspect-ratio: 4 / 5; overflow: hidden;
+    background: radial-gradient(120% 100% at 50% 30%, #FFFDFA 0%, #FAF1EB 60%, #F3E4DC 100%);
+  }
+  .pcard__art svg { width: 100%; height: 100%; }
+  .pcard__tag {
+    position: absolute; top: 8px; left: 8px; padding: 4px 7px 3px;
+    border: 1px solid rgba(200, 154, 145, .55); border-radius: 999px;
+    background: rgba(255, 253, 251, .86); color: var(--rose-deep);
+    font-size: 6px; letter-spacing: .16em; text-transform: uppercase;
+  }
+  .pcard__body { padding: 12px 12px 14px; border-top: 1px solid var(--line); }
+  .pcard__name { margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 15px; }
+  .pcard__name span { color: var(--rose-deep); }
+  .pcard__price { display: block; margin-top: 3px; font-size: 9px; letter-spacing: .1em; color: var(--muted); }
+  .pcard__desc { margin: 5px 0 0; font-size: 9.5px; line-height: 1.5; color: var(--muted); }
+  .pcard__link { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 8px; letter-spacing: .16em; text-transform: uppercase; color: var(--rose-deep); }
+
+  .pieces-cta { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 22px; padding: 14px; border: 1px solid var(--rose); border-radius: 999px; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
+
+  /* sob medida */
+  .custom { background: var(--cream-2); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 48px 20px; }
+  .custom__lede { margin: 16px 0 0; font-size: 13px; line-height: 1.8; color: #5C534D; }
+  .steps { margin-top: 26px; border-top: 1px solid var(--line); }
+  .step { display: flex; gap: 16px; padding: 15px 0; border-bottom: 1px solid var(--line); }
+  .step__num { flex: none; min-width: 22px; padding-top: 2px; font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 13px; color: var(--rose-deep); }
+  .step__title { font-size: 13px; }
+  .step__desc { margin: 4px 0 0; font-size: 11.5px; line-height: 1.7; color: var(--muted); }
+
+  .brief { margin-top: 32px; background: var(--white); border: 1px solid var(--rose); border-radius: 16px; padding: 24px 20px 22px; }
+  .brief__head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 6px; }
+  .brief__title { margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 20px; }
+  .brief__kicker { font-size: 7px; letter-spacing: .18em; text-transform: uppercase; color: var(--rose-deep); }
+  .brief__note { margin: 0 0 22px; font-size: 10.5px; line-height: 1.7; color: var(--muted); }
+
+  .field { margin-bottom: 18px; border: 0; padding: 0; }
+  .field__label { display: block; margin-bottom: 8px; font-size: 7.5px; letter-spacing: .18em; text-transform: uppercase; color: #6B625C; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip-input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+  .chip {
+    display: inline-block; padding: 8px 12px 7px; border: 1px solid #DCC8BF; border-radius: 999px;
+    background: var(--white); font-size: 10.5px; color: var(--ink); cursor: pointer;
+    transition: background .3s ease, color .3s ease, border-color .3s ease;
+  }
+  .chip-input:checked + .chip { background: var(--ink); border-color: var(--ink); color: var(--cream); }
+  .chip-input:focus-visible + .chip { outline: 2px solid var(--rose-deep); outline-offset: 2px; }
+
+  .text-input {
+    width: 100%; padding: 11px 0; background: transparent; border: 0;
+    border-bottom: 1px solid #C9B3A9; font-size: 12px; color: var(--ink); outline: none;
+  }
+  .text-input::placeholder { color: #A2948D; }
+  .text-input:focus { border-bottom-color: var(--rose-deep); }
+  .text-input--area { resize: vertical; min-height: 44px; line-height: 1.6; }
+  .brief__hint { display: block; margin-top: 12px; font-size: 9.5px; color: var(--muted); }
+
+  /* processo */
+  .process { padding: 44px 20px 48px; }
+  .process__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; margin-bottom: 24px; }
+  .process__head h2 { margin: 0; font-family: 'Playfair Display', Georgia, serif; font-weight: 400; font-size: 25px; }
+  .process__kicker { font-size: 8px; letter-spacing: .16em; text-transform: uppercase; color: var(--rose-deep); }
+  .process__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 18px; }
+  .process__num { margin-bottom: 8px; font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 12px; color: var(--rose-deep); }
+  .process__title { font-size: 13px; margin-bottom: 5px; }
+  .process__text { margin: 0; font-size: 10.5px; line-height: 1.7; color: var(--muted); }
+
+  /* diário */
+  .diary { border-top: 1px solid var(--line); padding: 44px 20px; }
+  .diary__quote { margin: 14px 0 0; font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size: 25px; line-height: 1.36; letter-spacing: -.01em; }
+  .diary__sig { display: flex; align-items: center; gap: 12px; margin-top: 18px; font-size: 8px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+  .diary__sig::before { content: ""; width: 24px; height: 1px; background: var(--rose-deep); opacity: .7; }
+  .diary__body { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; flex-direction: column; gap: 14px; }
+  .diary__body p { margin: 0; font-size: 12px; line-height: 1.8; color: #5C534D; }
+  .diary__body a { align-self: flex-start; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+
+  /* rodapé */
+  .footer { background: #37312E; color: #F6EAE4; padding: 44px 20px 24px; }
+  .footer__brand { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .footer .seal { background: transparent; border-color: rgba(200, 154, 145, .75); }
+  .footer .seal::before { border-color: rgba(200, 154, 145, .55); }
+  .footer .seal__mono { color: #FBF6F1; }
+  .footer .seal__mono em { color: #DDB0A6; }
+  .footer .wordmark__name { color: #FBF6F1; }
+  .footer .wordmark__sub { color: #B7A79F; }
+  .footer__text { margin: 0 0 20px; font-size: 11.5px; line-height: 1.8; color: #C9BBB4; }
+
+  .newsletter { display: flex; align-items: center; gap: 8px; }
+  .newsletter input {
+    flex: 1; min-width: 0; padding: 10px 0; background: transparent; border: 0;
+    border-bottom: 1px solid #6C5E56; color: #FBF6F1; font-size: 11px; outline: none;
+  }
+  .newsletter input::placeholder { color: #A9988F; }
+  .newsletter button {
+    padding: 10px 13px 9px; background: var(--cream); color: var(--ink);
+    border: 1px solid var(--cream); border-radius: 999px;
+    font-size: 7.5px; letter-spacing: .18em; text-transform: uppercase; cursor: pointer;
+  }
+  .newsletter__note { margin: 8px 0 0; font-size: 8.5px; color: #9C8D85; }
+
+  .footer__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 26px; padding: 24px 0; border-top: 1px solid rgba(246, 234, 228, .16); border-bottom: 1px solid rgba(246, 234, 228, .16); }
+  .footer__col-title { margin-bottom: 13px; font-size: 7.5px; letter-spacing: .22em; text-transform: uppercase; color: #B7A79F; }
+  .footer__links { display: flex; flex-direction: column; gap: 10px; }
+  .footer__links a, .footer__links span { font-size: 10.5px; line-height: 1.6; color: #DCCCC4; }
+  .footer__links .script { font-size: 16px; color: #DDB0A6; }
+
+  .footer__bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding-top: 18px; font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: #A9988F; }
+  .footer__bottom .script { display: inline-flex; align-items: center; gap: 5px; font-size: 15px; letter-spacing: 0; text-transform: none; color: #DDB0A6; }
+
+  @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { animation: rise .8s cubic-bezier(.19, 1, .22, 1) both; }
+  @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
+  .float { animation: float 8s ease-in-out infinite; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .ribbon__track, .reveal, .float { animation: none !important; }
+    .btn, .chip, .draw-link::after { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#colecao">Pular para o conteúdo</a>
+
+<!-- defs compartilhadas -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="vm-glow" cx="50%" cy="38%" r="70%">
+      <stop offset="0%" stop-color="#FFFDFA"/>
+      <stop offset="58%" stop-color="#FBF2EC"/>
+      <stop offset="100%" stop-color="#F3E2DA"/>
+    </radialGradient>
+    <linearGradient id="vm-resin" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity=".92"/>
+      <stop offset="48%" stop-color="#FCF0EA" stop-opacity=".72"/>
+      <stop offset="100%" stop-color="#EFDFD7" stop-opacity=".82"/>
+    </linearGradient>
+    <linearGradient id="vm-rim" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E7C8BE"/>
+      <stop offset="52%" stop-color="#C4958B"/>
+      <stop offset="100%" stop-color="#EAD1C9"/>
+    </linearGradient>
+
+    <symbol id="vm-bloom" viewBox="0 0 24 24">
+      <g fill="var(--petal, #CFA096)">
+        <circle cx="12" cy="5.4" r="3.6"/>
+        <circle cx="18.3" cy="10" r="3.6"/>
+        <circle cx="15.9" cy="17.4" r="3.6"/>
+        <circle cx="8.1" cy="17.4" r="3.6"/>
+        <circle cx="5.7" cy="10" r="3.6"/>
+      </g>
+      <circle cx="12" cy="12" r="2.5" fill="var(--core, #EDD1C8)"/>
+    </symbol>
+
+    <symbol id="vm-leaf" viewBox="0 0 28 12">
+      <path d="M1 6 C7 1 20 0 27 5 C20 11 8 12 1 6 Z" fill="var(--leaf, #A9B49E)"/>
+      <path d="M3 6 C11 5 19 5 25 5.6" stroke="var(--leaf-vein, #8B987F)" stroke-width=".5" fill="none" opacity=".5"/>
+    </symbol>
+
+    <symbol id="vm-euca-leaf" viewBox="0 0 30 22">
+      <ellipse cx="15" cy="11" rx="14" ry="8.5" fill="var(--euca, #A9B49E)"/>
+      <path d="M5 11 H25" stroke="#8B987F" stroke-width=".5" opacity=".45"/>
+    </symbol>
+
+    <symbol id="vm-spark" viewBox="0 0 24 24">
+      <path d="M12 0 C13 7 17 11 24 12 C17 13 13 17 12 24 C11 17 7 13 0 12 C7 11 11 7 12 0 Z" fill="currentColor"/>
+    </symbol>
+
+    <symbol id="vm-heart" viewBox="0 0 32 30">
+      <path d="M16 26.5 C9.5 21 2.5 16 2.5 10.2 C2.5 5.4 6.2 2 10.4 2 C13.2 2 15.2 3.6 16 5.6 C16.8 3.6 18.8 2 21.6 2 C25.8 2 29.5 5.4 29.5 10.2 C29.5 16 22.5 21 16 26.5 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="vm-branch" viewBox="0 0 140 300">
+      <g stroke="var(--stem, #97A48C)" stroke-width="1.1" fill="none" stroke-linecap="round">
+        <path d="M70 296 C67 250 60 208 50 168 C41 132 38 96 46 56 C48 46 52 38 58 30"/>
+        <path d="M52 214 C64 200 76 192 92 188"/>
+        <path d="M46 172 C58 160 70 154 84 150"/>
+        <path d="M41 128 C52 118 62 112 74 110"/>
+        <path d="M42 88 C52 78 62 72 72 70"/>
+        <path d="M47 56 C54 48 60 42 66 36"/>
+      </g>
+      <g>
+        <use href="#vm-leaf" width="30" height="13" transform="translate(36 244) rotate(-30)"/>
+        <use href="#vm-leaf" width="30" height="13" transform="translate(56 206) rotate(18)"/>
+        <use href="#vm-leaf" width="28" height="12" transform="translate(28 178) rotate(-34)"/>
+        <use href="#vm-leaf" width="28" height="12" transform="translate(54 152) rotate(24)"/>
+        <use href="#vm-leaf" width="26" height="11" transform="translate(24 128) rotate(-38)"/>
+        <use href="#vm-leaf" width="26" height="11" transform="translate(50 100) rotate(28)"/>
+        <use href="#vm-leaf" width="24" height="10" transform="translate(32 74) rotate(-34)"/>
+      </g>
+      <g color="var(--petal, #CFA096)">
+        <use href="#vm-bloom" width="20" height="20" transform="translate(84 176)"/>
+        <use href="#vm-bloom" width="17" height="17" transform="translate(76 140)"/>
+        <use href="#vm-bloom" width="19" height="19" transform="translate(66 102)"/>
+        <use href="#vm-bloom" width="16" height="16" transform="translate(62 62)"/>
+        <use href="#vm-bloom" width="14" height="14" transform="translate(57 26)"/>
+        <use href="#vm-bloom" width="12" height="12" transform="translate(88 196)"/>
+        <use href="#vm-bloom" width="11" height="11" transform="translate(70 160)"/>
+        <use href="#vm-bloom" width="10" height="10" transform="translate(60 120)"/>
+        <use href="#vm-bloom" width="10" height="10" transform="translate(50 82)"/>
+        <use href="#vm-bloom" width="9" height="9" transform="translate(66 44)"/>
+      </g>
+      <g fill="var(--petal, #CFA096)" opacity=".85">
+        <circle cx="95" cy="182" r="2.2"/>
+        <circle cx="104" cy="172" r="1.6"/>
+        <circle cx="78" cy="148" r="1.8"/>
+        <circle cx="86" cy="160" r="1.4"/>
+        <circle cx="68" cy="132" r="1.5"/>
+        <circle cx="58" cy="96" r="1.6"/>
+        <circle cx="54" cy="58" r="1.4"/>
+        <circle cx="66" cy="34" r="1.5"/>
+      </g>
+    </symbol>
+
+    <symbol id="vm-euca-branch" viewBox="0 0 160 300">
+      <path d="M104 298 C94 250 84 204 72 162 C60 120 52 82 54 34" stroke="var(--euca-stem, #93A089)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <g>
+        <use href="#vm-euca-leaf" width="34" height="24" transform="translate(74 246) rotate(-28)"/>
+        <use href="#vm-euca-leaf" width="32" height="23" transform="translate(52 228) rotate(24)"/>
+        <use href="#vm-euca-leaf" width="34" height="24" transform="translate(66 202) rotate(-32)"/>
+        <use href="#vm-euca-leaf" width="31" height="22" transform="translate(40 184) rotate(20)"/>
+        <use href="#vm-euca-leaf" width="32" height="23" transform="translate(54 158) rotate(-34)"/>
+        <use href="#vm-euca-leaf" width="29" height="21" transform="translate(30 138) rotate(18)"/>
+        <use href="#vm-euca-leaf" width="30" height="21" transform="translate(44 112) rotate(-36)"/>
+        <use href="#vm-euca-leaf" width="26" height="19" transform="translate(24 92) rotate(16)"/>
+        <use href="#vm-euca-leaf" width="26" height="19" transform="translate(38 70) rotate(-38)"/>
+        <use href="#vm-euca-leaf" width="22" height="16" transform="translate(26 50) rotate(10)"/>
+        <use href="#vm-euca-leaf" width="20" height="15" transform="translate(38 32) rotate(-30)"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<div style="width: 100%; overflow-x: hidden; background: var(--cream); color: var(--ink); font-family: 'Jost', system-ui, sans-serif; -webkit-font-smoothing: antialiased;">
+
+  <!-- faixa superior -->
+  <div class="topbar">
+    <div>
+      <svg width="10" height="10" viewBox="0 0 32 30" aria-hidden="true"><path d="M16 26.5C9.5 21 2.5 16 2.5 10.2 2.5 5.4 6.2 2 10.4 2 13.2 2 15.2 3.6 16 5.6 16.8 3.6 18.8 2 21.6 2 25.8 2 29.5 5.4 29.5 10.2 29.5 16 22.5 21 16 26.5Z" fill="currentColor"/></svg>
+      Feito à mão, com amor · desde 2019
+    </div>
+    <div>Enviamos para todo o Brasil · sob medida</div>
+  </div>
+
+  <!-- cabeçalho -->
+  <header class="site-header">
+    <div class="header-main">
+      <a class="brand" href="#topo" aria-label="Ateliê VM — página inicial">
+        <span class="seal" aria-hidden="true"><span class="seal__mono"><em>V</em>M</span></span>
+        <span class="wordmark">
+          <span class="wordmark__name">ATELIÊ VM</span>
+          <span class="wordmark__sub">Artesanato em resina</span>
+        </span>
+      </a>
+      <a class="cart" href="#colecao" aria-label="Sacola de compras, 0 itens">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        Sacola (0)
+      </a>
+    </div>
+    <nav class="header-nav" aria-label="Navegação principal">
+      <div class="header-nav__inner">
+        <a href="#colecao">A coleção</a>
+        <a href="#sob-medida">Sob medida</a>
+        <a href="#atelie">O ateliê</a>
+        <a href="#diario">Diário</a>
+        <a href="#contato">Contato</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- hero -->
+  <section class="hero" id="topo">
+    <div class="reveal">
+      <p class="eyebrow">Ateliê de resina · peças únicas</p>
+      <p class="hero__script script">Feito à mão, com amor</p>
+      <h1 class="hero__title">A flor de um dia,<br><em>para a vida inteira.</em></h1>
+      <p class="hero__lede">Bandejas, porta-joias e luminárias em resina com flores silvestres prensadas. Cada peça guarda um pedaço de campo — e nenhuma sai igual à outra.</p>
+
+      <div class="hero__actions">
+        <a class="btn btn--solid" href="#colecao">Ver a coleção <span aria-hidden="true">→</span></a>
+        <a class="btn btn--ghost" href="#sob-medida">Encomendar sob medida</a>
+      </div>
+
+      <div class="hero__art">
+        <svg class="hero__spark hero__spark--a" width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0Z" fill="currentColor"/></svg>
+        <svg class="hero__spark hero__spark--b" width="11" height="11" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C13 7 17 11 24 12 17 13 13 17 12 24 11 17 7 13 0 12 7 11 11 7 12 0Z" fill="currentColor"/></svg>
+
+        <div class="arch">
+          <svg viewBox="0 0 420 520" role="img" aria-label="Arco em resina com ramos de flores silvestres rosa-poeira, eucalipto e um coração desenhado a linha">
+            <defs><clipPath id="clip-hero"><path d="M18 520V200A192 192 0 0 1 402 200V520Z"/></clipPath></defs>
+            <rect width="420" height="520" fill="url(#vm-glow)"/>
+            <g clip-path="url(#clip-hero)">
+              <circle cx="210" cy="278" r="172" fill="none" stroke="#E4C4BA" stroke-width="1" opacity=".55"/>
+              <circle cx="210" cy="278" r="156" fill="none" stroke="#E4C4BA" stroke-width=".6" opacity=".35"/>
+              <use href="#vm-euca-branch" width="230" height="400" transform="translate(170 158) rotate(22)"/>
+              <use href="#vm-branch" width="250" height="420" transform="translate(40 126) rotate(-12)"/>
+              <use href="#vm-euca-branch" width="140" height="250" transform="translate(286 274) rotate(38)"/>
+              <use href="#vm-branch" width="160" height="270" transform="translate(226 288) rotate(10)"/>
+              <use href="#vm-bloom" width="38" height="38" transform="translate(238 406)"/>
+              <use href="#vm-bloom" width="26" height="26" transform="translate(288 366)"/>
+              <use href="#vm-bloom" width="20" height="20" transform="translate(206 442)"/>
+              <use href="#vm-bloom" width="16" height="16" transform="translate(300 414)"/>
+              <use href="#vm-leaf" width="38" height="16" transform="translate(150 452) rotate(-12)"/>
+              <use href="#vm-heart" width="48" height="45" transform="translate(296 208)" color="#C89A91"/>
+              <use href="#vm-spark" width="16" height="16" transform="translate(120 176)" color="#C89A91"/>
+              <use href="#vm-spark" width="11" height="11" transform="translate(338 262)" color="#C89A91"/>
+            </g>
+            <path d="M18 520V200A192 192 0 0 1 402 200V520" fill="none" stroke="#C89A91" stroke-width="1.3"/>
+            <path d="M34 520V206A176 176 0 0 1 386 206V520" fill="none" stroke="#DFB9AF" stroke-width=".7" opacity=".85"/>
+            <use href="#vm-spark" width="18" height="18" transform="translate(350 84)" color="#C89A91"/>
+            <use href="#vm-spark" width="10" height="10" transform="translate(62 124)" color="#C89A91"/>
+          </svg>
+        </div>
+
+        <span class="hero__tag">Herbário · 2026</span>
+        <div class="hero__badge float">
+          <small>Peça única</small>
+          <span class="script">nº 001</span>
+          <small>1 de 1</small>
+        </div>
+      </div>
+
+      <div class="hero__meta">
+        <span>Peças numeradas</span>
+        <span>Feito à mão</span>
+        <span>Todo o Brasil</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- fita -->
+  <div class="ribbon">
+    <div class="ribbon__track" style="--marquee-speed: 26s;">
+      <div class="ribbon__group">
+        <span>Resina epóxi</span><span class="spark" aria-hidden="true">✦</span>
+        <span>Flores prensadas</span><span class="spark" aria-hidden="true">✦</span>
+        <span>Eucalipto</span><span class="spark" aria-hidden="true">✦</span>
+        <span>Folha de ouro</span><span class="spark" aria-hidden="true">✦</span>
+        <span>Feito à mão</span><span class="spark" aria-hidden="true">✦</span>
+      </div>
+      <div class="ribbon__group" aria-hidden="true">
+        <span>Resina epóxi</span><span class="spark">✦</span>
+        <span>Flores prensadas</span><span class="spark">✦</span>
+        <span>Eucalipto</span><span class="spark">✦</span>
+        <span>Folha de ouro</span><span class="spark">✦</span>
+        <span>Feito à mão</span><span class="spark">✦</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- coleção -->
+  <section class="section" id="colecao">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">A coleção · 06 peças</p>
+        <h2 class="h2">Peças que guardam <em>estações</em></h2>
+      </div>
+    </div>
+
+    <div class="pieces">
+
+      <article class="pcard">
+        <div class="pcard__art">
+          <svg viewBox="0 0 400 500" role="img" aria-label="Bandeja de resina com flores silvestres e eucalipto prensados">
+            <defs><clipPath id="m-clip-tray"><rect x="-108" y="-76" width="216" height="152" rx="24"/></clipPath></defs>
+            <rect width="400" height="500" fill="url(#vm-glow)"/>
+            <circle cx="200" cy="250" r="152" fill="none" stroke="#E4C4BA" stroke-width=".9" opacity=".5"/>
+            <g transform="translate(200 252) rotate(-7)">
+              <rect x="-120" y="-88" width="240" height="176" rx="30" fill="url(#vm-resin)" stroke="url(#vm-rim)" stroke-width="1.8"/>
+              <rect x="-107" y="-75" width="214" height="150" rx="24" fill="none" stroke="#DDB4A9" stroke-width=".7" opacity=".8"/>
+              <g clip-path="url(#m-clip-tray)">
+                <use href="#vm-branch" width="150" height="240" transform="translate(-104 -130) rotate(18)"/>
+                <use href="#vm-euca-branch" width="122" height="212" transform="translate(-12 -122) rotate(-26)"/>
+                <use href="#vm-euca-branch" width="90" height="160" transform="translate(-56 -34) rotate(58)"/>
+                <use href="#vm-bloom" width="26" height="26" transform="translate(58 48)" color="#D8B2A9"/>
+                <use href="#vm-bloom" width="18" height="18" transform="translate(-46 46)"/>
+                <use href="#vm-bloom" width="14" height="14" transform="translate(24 -46)"/>
+                <use href="#vm-leaf" width="34" height="14" transform="translate(28 62) rotate(-18)"/>
+              </g>
+              <path d="M-104 -70C-64 -82 40 -84 104 -68" stroke="#FFFFFF" stroke-width="2.2" fill="none" opacity=".75"/>
+            </g>
+          </svg>
+          <span class="pcard__tag">Peça única · nº 001</span>
+        </div>
+        <div class="pcard__body">
+          <h3 class="pcard__name">Bandeja <span>Campo</span></h3>
+          <span class="pcard__price">R$ 186</span>
+          <p class="pcard__desc">Resina + flores silvestres</p>
+          <a class="pcard__link" href="#sob-medida">Ver peça <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="pcard">
+        <div class="pcard__art">
+          <svg viewBox="0 0 400 500" role="img" aria-label="Porta-joias redondo de resina com flores rosa-poeira">
+            <defs><clipPath id="m-clip-dish"><circle r="108"/></clipPath></defs>
+            <rect width="400" height="500" fill="url(#vm-glow)"/>
+            <circle cx="200" cy="250" r="152" fill="none" stroke="#E4C4BA" stroke-width=".9" opacity=".5"/>
+            <g transform="translate(200 250)">
+              <circle r="122" fill="url(#vm-resin)" stroke="url(#vm-rim)" stroke-width="1.8"/>
+              <circle r="108" fill="none" stroke="#DDB4A9" stroke-width=".7" opacity=".8"/>
+              <g clip-path="url(#m-clip-dish)">
+                <use href="#vm-branch" width="138" height="222" transform="translate(-98 -122) rotate(14)"/>
+                <use href="#vm-euca-branch" width="108" height="188" transform="translate(4 -106) rotate(-30)"/>
+                <use href="#vm-euca-branch" width="80" height="140" transform="translate(-40 12) rotate(62)"/>
+                <use href="#vm-bloom" width="30" height="30" transform="translate(40 40)"/>
+                <use href="#vm-bloom" width="18" height="18" transform="translate(-52 26)"/>
+                <use href="#vm-bloom" width="14" height="14" transform="translate(16 -58)"/>
+                <use href="#vm-leaf" width="30" height="13" transform="translate(52 62) rotate(-24)"/>
+              </g>
+              <path d="M-102 -44C-56 -66 58 -66 102 -32" stroke="#FFFFFF" stroke-width="2.2" fill="none" opacity=".75"/>
+            </g>
+          </svg>
+          <span class="pcard__tag">Peça única · nº 002</span>
+        </div>
+        <div class="pcard__body">
+          <h3 class="pcard__name">Porta-joias <span>Orvalho</span></h3>
+          <span class="pcard__price">R$ 128</span>
+          <p class="pcard__desc">Resina + rosas e baby's breath</p>
+          <a class="pcard__link" href="#sob-medida">Ver peça <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="pcard">
+        <div class="pcard__art">
+          <svg viewBox="0 0 400 500" role="img" aria-label="Luminária em arco de resina com flores prensadas e luz de vela">
+            <defs><clipPath id="m-clip-lamp"><rect x="-64" y="-118" width="128" height="228" rx="64"/></clipPath></defs>
+            <rect width="400" height="500" fill="url(#vm-glow)"/>
+            <circle cx="200" cy="248" r="150" fill="none" stroke="#E4C4BA" stroke-width=".9" opacity=".5"/>
+            <g transform="translate(200 252)">
+              <ellipse cx="0" cy="118" rx="64" ry="10" fill="#E8D5CB" opacity=".65"/>
+              <rect x="-66" y="-120" width="132" height="232" rx="66" fill="url(#vm-resin)" stroke="url(#vm-rim)" stroke-width="1.8"/>
+              <g clip-path="url(#m-clip-lamp)">
+                <ellipse cx="0" cy="46" rx="42" ry="54" fill="#F8DFC2" opacity=".55"/>
+                <use href="#vm-branch" width="140" height="230" transform="translate(-88 -126) rotate(10)"/>
+                <use href="#vm-euca-branch" width="104" height="184" transform="translate(0 -112) rotate(-26)"/>
+                <use href="#vm-bloom" width="20" height="20" transform="translate(16 74)"/>
+                <use href="#vm-bloom" width="15" height="15" transform="translate(-26 54)"/>
+                <use href="#vm-leaf" width="26" height="11" transform="translate(-46 86) rotate(-12)"/>
+              </g>
+              <rect x="-54" y="-106" width="108" height="206" rx="54" fill="none" stroke="#DDB4A9" stroke-width=".7" opacity=".7"/>
+              <path d="M0 8C10 19 14 28 14 37 14 49 7 56 0 56-7 56-14 49-14 37-14 28-10 19 0 8Z" fill="#E2AF83"/>
+              <path d="M0 28C4 34 6 39 6 43 6 49 3 52 0 52-3 52-6 49-6 43-6 39-4 34 0 28Z" fill="#FCEEDA"/>
+            </g>
+          </svg>
+          <span class="pcard__tag">Peça única · nº 003</span>
+        </div>
+        <div class="pcard__body">
+          <h3 class="pcard__name">Luminária <span>Entardecer</span></h3>
+          <span class="pcard__price">R$ 214</span>
+          <p class="pcard__desc">Resina + flores + luz de vela</p>
+          <a class="pcard__link" href="#sob-medida">Ver peça <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="pcard">
+        <div class="pcard__art">
+          <svg viewBox="0 0 400 500" role="img" aria-label="Jogo de quatro porta-copos de resina com flores e eucalipto">
+            <defs>
+              <clipPath id="m-co1"><rect width="112" height="112" rx="18"/></clipPath>
+              <clipPath id="m-co2"><rect width="112" height="112" rx="18"/></clipPath>
+              <clipPath id="m-co3"><rect width="112" height="112" rx="18"/></clipPath>
+              <clipPath id="m-co4"><rect width="112" height="112" rx="18"/></clipPath>
+            </defs>
+            <rect width="400" height="500" fill="url(#vm-glow)"/>
+            <circle cx="200" cy="250" r="154" fill="none" stroke="#E4C4BA" stroke-width=".9" opacity=".5"/>
+            <g transform="translate(200 250) rotate(-3)">
+              <g transform="translate(-124 -118) rotate(-5)">
+                <rect width="112" height="112" rx="18" fill="url(#vm-resin)" stroke="url(#vm-rim)" stroke-width="1.5"/>
+                <g clip-path="url(#m-co1)">
+                  <use href="#vm-branch" width="82" height="136" transform="translate(4 -20) rotate(20)"/>
+                  <use href="#vm-bloom" width="26" height="26" transform="translate(62 68)"/>
+                  <use href="#vm-leaf" width="26" height="11" transform="translate(14 84) rotate(-14)"/>
+                </g>
+              </g>
+              <g transform="translate(8 -102) rotate(4)">
+                <rect width="112" height="112" rx="18" fill="url(#vm-resin)" stroke="url(#vm-rim)" stroke-width="1.5"/>
+                <g clip-path="url(#m-co2)">
+                  <use href="#vm-euca-branch" width="76" height="128" transform="translate(20 -14) rotate(-14)"/>
+                  <use href="#vm-bloom" width="22" height="22" transform="translate(56 66)"/>
+                </g>
+              </g>
+              <g transform="translate(-112 8) rotate(3)">
+                <rect width="112" height="112" rx="18" fill="url(#vm-resin)" stroke="url(#vm-rim)" stroke-width="1.5"/>
+                <g clip-path="url(#m-co3)">
+                  <use href="#vm-euca-branch" width="74" height="126" transform="translate(18 -12) rotate(26)"/>
+                  <use href="#vm-bloom" width="20" height="20" transform="translate(30 72)"/>
+                  <use href="#vm-leaf" width="24" height="10" transform="translate(60 84) rotate(12)"/>
+                </g>
+              </g>
+              <g transform="translate(20 20) rotate(-4)">
+                <rect width="112" height="112" rx="18" fill="url(#vm-resin)" stroke="url(#vm-rim)" stroke-width="1.5"/>
+                <g clip-path="url(#m-co4)">
+                  <use href="#vm-branch" width="78" height="130" transform="translate(10 -18) rotate(-16)"/>
+                  <use href="#vm-bloom" width="24" height="24" transform="translate(60 66)"/>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <span class="pcard__tag">Jogo de 4</span>
+        </div>
+        <div class="pcard__body">
+          <h3 class="pcard__name">Porta-copos <span>Herbário</span></h3>
+          <span class="pcard__price">R$ 148</span>
+          <p class="pcard__desc">Resina + eucalipto e flores</p>
+          <a class="pcard__link" href="#sob-medida">Ver peça <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="pcard">
+        <div class="pcard__art">
+          <svg viewBox="0 0 400 500" role="img" aria-label="Vaso translúcido de resina com flores suspensas e ramos de flores silvestres">
+            <defs><clipPath id="m-clip-vase"><path d="M-50 92C-62 40-56-4-32-36L-26-62H26L32-36C56-4 62 40 50 92Z"/></clipPath></defs>
+            <rect width="400" height="500" fill="url(#vm-glow)"/>
+            <circle cx="200" cy="264" r="150" fill="none" stroke="#E4C4BA" stroke-width=".9" opacity=".5"/>
+            <g transform="translate(200 258)">
+              <use href="#vm-euca-branch" width="92" height="176" transform="translate(2 -196) rotate(18)"/>
+              <use href="#vm-branch" width="112" height="204" transform="translate(-64 -220) rotate(-10)"/>
+              <use href="#vm-bloom" width="28" height="28" transform="translate(-34 -192)"/>
+              <use href="#vm-bloom" width="20" height="20" transform="translate(22 -172)"/>
+              <use href="#vm-bloom" width="15" height="15" transform="translate(6 -212)"/>
+              <path d="M-50 92C-62 40-56-4-32-36L-26-62H26L32-36C56-4 62 40 50 92Z" fill="url(#vm-resin)" stroke="url(#vm-rim)" stroke-width="1.7"/>
+              <g clip-path="url(#m-clip-vase)">
+                <use href="#vm-branch" width="96" height="160" transform="translate(-58 -66) rotate(12)"/>
+                <use href="#vm-euca-branch" width="72" height="128" transform="translate(2 -58) rotate(-26)"/>
+                <use href="#vm-bloom" width="20" height="20" transform="translate(14 42)"/>
+                <use href="#vm-bloom" width="14" height="14" transform="translate(-30 62)"/>
+              </g>
+              <ellipse cx="0" cy="96" rx="52" ry="9" fill="#E8D5CB" opacity=".55"/>
+            </g>
+          </svg>
+          <span class="pcard__tag">Peça única · nº 005</span>
+        </div>
+        <div class="pcard__body">
+          <h3 class="pcard__name">Vaso <span>Silvestre</span></h3>
+          <span class="pcard__price">R$ 168</span>
+          <p class="pcard__desc">Resina + flores suspensas</p>
+          <a class="pcard__link" href="#sob-medida">Ver peça <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+      <article class="pcard">
+        <div class="pcard__art">
+          <svg viewBox="0 0 400 500" role="img" aria-label="Quadro de resina com arranjo de flores prensadas e moldura rose-gold">
+            <defs><clipPath id="m-clip-frame"><rect x="-86" y="-112" width="172" height="224" rx="4"/></clipPath></defs>
+            <rect width="400" height="500" fill="url(#vm-glow)"/>
+            <circle cx="200" cy="250" r="154" fill="none" stroke="#E4C4BA" stroke-width=".9" opacity=".5"/>
+            <g transform="translate(200 250) rotate(-1.5)">
+              <rect x="-98" y="-124" width="196" height="248" rx="8" fill="url(#vm-resin)" stroke="url(#vm-rim)" stroke-width="1.8"/>
+              <g clip-path="url(#m-clip-frame)">
+                <use href="#vm-branch" width="126" height="216" transform="translate(-96 -122) rotate(24)"/>
+                <use href="#vm-euca-branch" width="106" height="190" transform="translate(12 -114) rotate(-30)"/>
+                <use href="#vm-bloom" width="28" height="28" transform="translate(28 58)"/>
+                <use href="#vm-bloom" width="18" height="18" transform="translate(-52 62)"/>
+                <use href="#vm-bloom" width="14" height="14" transform="translate(46 -62)"/>
+                <use href="#vm-leaf" width="32" height="13" transform="translate(24 88) rotate(-16)"/>
+                <use href="#vm-heart" width="24" height="23" transform="translate(-18 -58)" color="#C89A91"/>
+              </g>
+              <rect x="-86" y="-112" width="172" height="224" rx="4" fill="none" stroke="#DDB4A9" stroke-width=".8"/>
+            </g>
+          </svg>
+          <span class="pcard__tag">Peça única · nº 006</span>
+        </div>
+        <div class="pcard__body">
+          <h3 class="pcard__name">Quadro <span>Memória</span></h3>
+          <span class="pcard__price">R$ 244</span>
+          <p class="pcard__desc">Resina + flores prensadas</p>
+          <a class="pcard__link" href="#sob-medida">Ver peça <span aria-hidden="true">→</span></a>
+        </div>
+      </article>
+
+    </div>
+
+    <a class="pieces-cta" href="#sob-medida">Encomendar uma peça <span aria-hidden="true">→</span></a>
+  </section>
+
+  <!-- sob medida -->
+  <section class="custom" id="sob-medida">
+    <p class="eyebrow">Sob medida · fora da coleção</p>
+    <h2 class="h2" style="font-size: 29px;">Você escolhe as flores.<br><em>Nós guardamos para sempre.</em></h2>
+    <p class="custom__lede">Conte o formato, as flores e o acabamento. A peça é desenhada e curada no ateliê — com flores da nossa coleção, com o seu buquê ou com as que você secou em casa.</p>
+
+    <div class="steps">
+      <div class="step">
+        <span class="step__num" aria-hidden="true">01</span>
+        <div>
+          <div class="step__title">Formato e função</div>
+          <p class="step__desc">Bandeja, porta-joias, luminária, quadro — ou uma peça nova.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__num" aria-hidden="true">02</span>
+        <div>
+          <div class="step__title">As flores</div>
+          <p class="step__desc">Silvestres, eucalipto, rosas do seu buquê ou flores secas.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__num" aria-hidden="true">03</span>
+        <div>
+          <div class="step__title">Acabamento</div>
+          <p class="step__desc">Borda reta ou arredondada, brilho ou fosco, folha de ouro e gravação.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step__num" aria-hidden="true">04</span>
+        <div>
+          <div class="step__title">Prazo</div>
+          <p class="step__desc">De 15 a 45 dias, conforme a secagem e a cura da resina.</p>
+        </div>
+      </div>
+    </div>
+
+    <form class="brief" action="#" method="post">
+      <div class="brief__head">
+        <h3 class="brief__title">Briefing do ateliê</h3>
+        <span class="brief__kicker">Peça em branco</span>
+      </div>
+      <p class="brief__note">Sem compromisso. Você recebe um desenho, o orçamento e o prazo.</p>
+
+      <fieldset class="field">
+        <legend class="field__label" style="padding:0;">Formato</legend>
+        <div class="chips">
+          <input class="chip-input" type="radio" name="formato" id="m-formato-bandeja" checked>
+          <label class="chip" for="m-formato-bandeja">Bandeja</label>
+          <input class="chip-input" type="radio" name="formato" id="m-formato-joias">
+          <label class="chip" for="m-formato-joias">Porta-joias</label>
+          <input class="chip-input" type="radio" name="formato" id="m-formato-luminaria">
+          <label class="chip" for="m-formato-luminaria">Luminária</label>
+          <input class="chip-input" type="radio" name="formato" id="m-formato-quadro">
+          <label class="chip" for="m-formato-quadro">Quadro</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend class="field__label" style="padding:0;">Flores</legend>
+        <div class="chips">
+          <input class="chip-input" type="radio" name="flores" id="m-flores-silvestres" checked>
+          <label class="chip" for="m-flores-silvestres">Silvestres</label>
+          <input class="chip-input" type="radio" name="flores" id="m-flores-eucalipto">
+          <label class="chip" for="m-flores-eucalipto">Eucalipto</label>
+          <input class="chip-input" type="radio" name="flores" id="m-flores-buque">
+          <label class="chip" for="m-flores-buque">Meu buquê</label>
+          <input class="chip-input" type="radio" name="flores" id="m-flores-combinar">
+          <label class="chip" for="m-flores-combinar">A combinar</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="field">
+        <legend class="field__label" style="padding:0;">Prazo</legend>
+        <div class="chips">
+          <input class="chip-input" type="radio" name="prazo" id="m-prazo-15">
+          <label class="chip" for="m-prazo-15">15 dias</label>
+          <input class="chip-input" type="radio" name="prazo" id="m-prazo-30" checked>
+          <label class="chip" for="m-prazo-30">30 dias</label>
+          <input class="chip-input" type="radio" name="prazo" id="m-prazo-sem">
+          <label class="chip" for="m-prazo-sem">Sem pressa</label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label class="field__label" for="m-ideia">Sua ideia em uma frase</label>
+        <textarea class="text-input text-input--area" id="m-ideia" name="ideia" rows="2" placeholder="Uma bandeja oval com as flores do meu casamento."></textarea>
+      </div>
+
+      <button class="btn btn--solid" type="submit" style="width:100%;">Enviar briefing <span aria-hidden="true">→</span></button>
+      <span class="brief__hint">Conversamos antes de qualquer orçamento.</span>
+    </form>
+  </section>
+
+  <!-- processo -->
+  <section class="process" id="atelie">
+    <div class="process__head">
+      <h2>Da colheita à caixa</h2>
+      <span class="process__kicker">Sem atalhos</span>
+    </div>
+    <div class="process__grid">
+      <div>
+        <div class="process__num" aria-hidden="true">01</div>
+        <div class="process__title">Colheita</div>
+        <p class="process__text">Flores colhidas de manhã e prensadas por três a quatro semanas.</p>
+      </div>
+      <div>
+        <div class="process__num" aria-hidden="true">02</div>
+        <div class="process__title">Composição</div>
+        <p class="process__text">Cada flor é posicionada à mão. Nenhum arranjo se repete.</p>
+      </div>
+      <div>
+        <div class="process__num" aria-hidden="true">03</div>
+        <div class="process__title">Resina</div>
+        <p class="process__text">Camadas finas, com 24 horas de cura entre elas.</p>
+      </div>
+      <div>
+        <div class="process__num" aria-hidden="true">04</div>
+        <div class="process__title">Entrega</div>
+        <p class="process__text">Embalada em algodão cru, com nome e número da peça.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- diário -->
+  <section class="diary" id="diario">
+    <p class="eyebrow">Diário do ateliê · nº 12</p>
+    <p class="diary__quote">“A flor entra na resina no dia em que foi colhida. O resto é paciência.”</p>
+    <div class="diary__sig">Caderno do ateliê</div>
+    <div class="diary__body">
+      <p>O ateliê fica numa casa baixa, com a bancada virada para a janela. As flores chegam de manhã, ainda com orvalho, e passam semanas entre jornais e livros até estarem prontas.</p>
+      <a class="draw-link" href="#contato">Ler o diário inteiro</a>
+    </div>
+  </section>
+
+  <!-- rodapé -->
+  <footer class="footer" id="contato">
+    <div class="footer__brand">
+      <span class="seal" aria-hidden="true"><span class="seal__mono"><em>V</em>M</span></span>
+      <span class="wordmark">
+        <span class="wordmark__name">ATELIÊ VM</span>
+        <span class="wordmark__sub">Artesanato em resina</span>
+      </span>
+    </div>
+    <p class="footer__text">Peças em resina com flores prensadas, feitas uma a uma, à mão. Ateliê VM — São Paulo.</p>
+
+    <form class="newsletter" action="#" method="post">
+      <label for="m-email" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;">Seu e-mail</label>
+      <input id="m-email" type="email" name="email" placeholder="Seu e-mail" autocomplete="email" required>
+      <button type="submit">Assinar</button>
+    </form>
+    <p class="newsletter__note">Uma carta por mês, quando há peças novas.</p>
+
+    <div class="footer__grid">
+      <div>
+        <div class="footer__col-title">Loja</div>
+        <div class="footer__links">
+          <a href="#colecao">Coleção completa</a>
+          <a href="#sob-medida">Sob medida</a>
+          <a href="#atelie">O ateliê</a>
+          <a href="#diario">Diário</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__col-title">Contato</div>
+        <div class="footer__links">
+          <a href="mailto:contato@atelievm.com.br">contato@atelievm.com.br</a>
+          <span>São Paulo — SP<br>Visitas com hora marcada</span>
+          <span class="script">Feito à mão, com amor</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <span>© 2026 Ateliê VM</span>
+      <span class="script">Feito à mão, com amor
+        <svg width="12" height="11" viewBox="0 0 32 30" aria-hidden="true"><path d="M16 26.5C9.5 21 2.5 16 2.5 10.2 2.5 5.4 6.2 2 10.4 2 13.2 2 15.2 3.6 16 5.6 16.8 3.6 18.8 2 21.6 2 25.8 2 29.5 5.4 29.5 10.2 29.5 16 22.5 21 16 26.5Z" fill="currentColor"/></svg>
+      </span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>
